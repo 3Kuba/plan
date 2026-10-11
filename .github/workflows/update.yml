@@ -1,0 +1,36 @@
+name: Automatyczny Parser Planu WAT
+
+on:
+  schedule:
+    # Uruchamia się codziennie o godzinie 3:00 rano
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Pozwala też uruchomić aktualizację ręcznie jednym kliknięciem
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v3
+
+      - name: Skonfiguruj środowisko Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Zainstaluj biblioteki do pobierania planu
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Uruchom skrypt pobierający plan WAT
+        run: |
+          python update_plan.py
+
+      - name: Zapisz zmiany w repozytorium
+        run: |
+          git config --global user.name "wat-bot"
+          git config --global user.email "bot@github.com"
+          git add data.json
+          git commit -m "Automatyczna aktualizacja planu WAT" || exit 0
+          git push
