@@ -2,8 +2,7 @@ name: Automatyczny Parser Planu WAT
 
 on:
   schedule:
-    # Uruchamia się codziennie o godzinie 3:00 rano
-    - cron: '0 3 * * *'
+  - cron: '0 */4 * * *'
   workflow_dispatch: # Pozwala też uruchomić aktualizację ręcznie jednym kliknięciem
 
 jobs:
