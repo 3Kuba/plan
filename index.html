@@ -3,151 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Zajęć WAT - WEL</title>
+    <title>Plan WAT - WEL26EQ2S1</title>
     <style>
         :root {
-            --primary: #1e3a8a;
-            --secondary: #3b82f6;
-            --background: #f3f4f6;
-            --card-bg: #ffffff;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --accent: #10b981;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --border: #334155;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--background);
-            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
         }
 
         header {
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.4rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
         }
 
-        .update-info {
-            font-size: 0.8rem;
-            color: #93c5fd;
-            margin-top: 5px;
+        header p {
+            margin: 4px 0 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 20px auto;
             padding: 0 15px;
         }
 
-        /* Zakładki dni tygodnia */
-        .days-tabs {
+        /* Nowoczesny pasek dni */
+        .days-container {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding-bottom: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
         }
 
-        .day-tab {
-            background-color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 20px;
+        .days-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .day-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 10px;
             font-weight: 600;
-            color: var(--text-light);
+            font-size: 0.9rem;
             cursor: pointer;
             white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .day-tab.active {
-            background-color: var(--secondary);
-            color: white;
+        .day-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
-        /* Kafelki zajęć w stylu Librusa */
+        /* Kafelki zajęć w stylu planwat.pl */
         .lesson-card {
             background-color: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px;
+            padding: 16px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--secondary);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.1s ease, border-color 0.2s ease;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--accent);
         }
 
         .lesson-card:active {
-            transform: scale(0.98);
+            transform: scale(0.99);
+        }
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .lesson-time {
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--secondary);
-        }
-
-        .lesson-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .lesson-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            border-top: 1px solid #f0f0f0;
-            padding-top: 8px;
-            margin-top: 4px;
-        }
-
-        .room-badge {
-            background-color: #e0f2fe;
-            color: #0369a1;
-            padding: 2px 8px;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 4px 8px;
             border-radius: 6px;
+        }
+
+        .room-tag {
+            background-color: #334155;
+            color: var(--text-main);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
+        .lesson-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .lesson-footer {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            margin-top: 2px;
+        }
+
         /* Sekcja mapy */
-        .map-container {
-            background-color: white;
+        .map-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px;
+            padding: 16px;
             margin-top: 25px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             text-align: center;
         }
 
-        .map-container h3 {
-            margin-top: 0;
-            font-size: 1rem;
-            color: var(--primary);
+        .map-section h3 {
+            margin: 0 0 12px 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
         .map-wrapper {
             position: relative;
             width: 100%;
-            max-height: 350px;
             overflow: hidden;
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border);
         }
 
         .map-wrapper img {
@@ -156,24 +177,23 @@
             display: block;
         }
 
-        /* Efekt podświetlenia budynku na mapie (przykładowy znacznik/pulsowanie) */
         .map-pin {
             position: absolute;
             background-color: #ef4444;
             color: white;
             padding: 4px 8px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 0.75rem;
             font-weight: bold;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
             animation: pulse 1.5s infinite;
             display: none;
         }
 
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.85; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
     </style>
@@ -181,95 +201,90 @@
 <body>
 
     <header>
-        <h1>Plan Zajęć WEL WAT (WEL26EQ2S1)</h1>
-        <div class="update-info" id="updateStatus">Ostatnia aktualizacja: Dzisiaj, w tle (automatycznie)</div>
+        <h1>WEL26EQ2S1</h1>
+        <p>Semestr Zimowy • WAT</p>
     </header>
 
     <div class="container">
-        <!-- Wybór dnia -->
-        <div class="days-tabs">
-            <button class="day-tab active" onclick="switchDay('poniedzialek')">Poniedziałek</button>
-            <button class="day-tab" onclick="switchDay('wtorek')">Wtorek</button>
-            <button class="day-tab" onclick="switchDay('sroda')">Środa</button>
-            <button class="day-tab" onclick="switchDay('czwartek')">Czwartek</button>
-            <button class="day-tab" onclick="switchDay('piatek')">Piątek</button>
+        <!-- Pasek dni -->
+        <div class="days-container">
+            <button class="day-btn active" onclick="switchDay('poniedzialek')">Poniedziałek</button>
+            <button class="day-btn" onclick="switchDay('wtorek')">Wtorek</button>
+            <button class="day-btn" onclick="switchDay('sroda')">Środa</button>
+            <button class="day-btn" onclick="switchDay('czwartek')">Czwartek</button>
+            <button class="day-btn" onclick="switchDay('piatek')">Piątek</button>
         </div>
 
-        <!-- Lista zajęć dla wybranego dnia -->
-        <div id="lessonsList">
-            <!-- Dynamicznie ładowane zajęcia -->
-        </div>
+        <!-- Lista zajęć -->
+        <div id="lessonsList"></div>
 
-        <!-- Interaktywna mapa z lokalizacją budynku -->
-        <div class="map-container">
-            <h3 id="mapTitle">Wskaźnik budynku na mapie WAT</h3>
+        <!-- Mapa -->
+        <div class="map-section">
+            <h3 id="mapTitle">Wskaźnik budynku na mapie</h3>
             <div class="map-wrapper">
-                <!-- Oryginalna mapa kampusu WAT -->
-                <img src="image_8f24b6.jpg" alt="Mapa WAT" id="kampusMap">
-                <!-- Znacznik wskazujący budynek (współrzędne X/Y można dopasować pod konkretny budynek) -->
+                <img src="image_8f24b6.png" alt="Mapa WAT" id="kampusMap">
                 <div id="mapPin" class="map-pin">Budynek</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Przykładowa baza danych zajęć z podziałem na dni oraz numery budynków
-        // (W pełnej wersji aplikacja automatycznie pobiera te dane ze strony WAT raz dziennie)
         const scheduleData = {
             poniedzialek: [
-                { time: "08:00 - 09:35", title: "Matematyka stosowana (Wykład)", lecturer: "dr hab. inż.", room: "Bud. 100 (WCY)", coords: { top: "52%", left: "48%" } },
-                { time: "10:00 - 11:35", title: "Fizyka techniczna (Laboratorium)", lecturer: "dr inż.", room: "Bud. 45 (WEL)", coords: { top: "67%", left: "72%" } }
+                { time: "08:00 - 09:35", title: "Fizyka (Wykład)", type: "Wykład", lecturer: "dr hab. inż.", room: "Bud. 45 (WEL)", coords: { top: "67%", left: "72%" } },
+                { time: "09:50 - 11:25", title: "Matematyka 2", type: "Ćwiczenia", lecturer: "dr inż.", room: "Bud. 100 (WCY)", coords: { top: "52%", left: "48%" } },
+                { time: "11:45 - 13:15", title: "Mechanika techniczna", type: "Wykład", lecturer: "dr hab.", room: "Bud. 136 (IOE)", coords: { top: "78%", left: "73%" } }
             ],
             wtorek: [
-                { time: "11:45 - 13:15", title: "Mechanika teoretyczna (Ćwiczenia)", lecturer: "prof. WAT", room: "Bud. 136 (IOE)", coords: { top: "78%", left: "73%" } },
-                { time: "13:30 - 15:00", title: "Informatyka w technice", lecturer: "mgr inż.", room: "Bud. 63 (WML)", coords: { top: "40%", left: "62%" } }
+                { time: "08:00 - 11:15", title: "Elektronika i Metrologia", type: "Laboratorium", lecturer: "dr inż.", room: "Bud. 45 (WEL)", coords: { top: "67%", left: "72%" } },
+                { time: "11:30 - 13:00", title: "Technologia materiałów", type: "Wykład", lecturer: "prof. WAT", room: "Bud. 58 (WIG)", coords: { top: "44%", left: "68%" } }
             ],
             sroda: [
-                { time: "09:00 - 12:00", title: "Projekt zespołowy", lecturer: "dr inż.", room: "Bud. 58 (WIG)", coords: { top: "44%", left: "68%" } }
+                { time: "09:00 - 12:15", title: "Podstawy grafiki inżynierskiej", type: "Projekt", lecturer: "dr inż.", room: "Bud. 63 (WML)", coords: { top: "40%", left: "62%" } },
+                { time: "12:30 - 14:00", title: "Język angielski", type: "Lektorat", lecturer: "mgr", room: "Studium Języków Obcych", coords: { top: "35%", left: "20%" } }
             ],
             czwartek: [
-                { time: "12:15 - 13:45", title: "Elektronika i optoelektronika", lecturer: "prof. dr hab.", room: "Bud. 100 (WCY)", coords: { top: "52%", left: "48%" } }
+                { time: "10:00 - 13:15", title: "Informatyka w Inżynierii", type: "Laboratorium", lecturer: "dr inż.", room: "Bud. 100 (WCY)", coords: { top: "52%", left: "48%" } },
+                { time: "13:30 - 15:00", title: "Przedmiot humanistyczny", type: "Wykład", lecturer: "dr", room: "Bud. 58 (WIG)", coords: { top: "44%", left: "68%" } }
             ],
             piatek: [
-                { time: "08:00 - 11:00", title: "Język angielski", lecturer: "mgr", room: "Studium Języków Obcych", coords: { top: "35%", left: "20%" } }
+                { time: "08:00 - 11:00", title: "Wychowanie fizyczne", type: "WF", lecturer: "Studium W-F", room: "Ośrodek Sportowy WAT", coords: { top: "75%", left: "15%" } }
             ]
         };
 
         function switchDay(day) {
-            // Zmiana aktywnej zakładki
-            document.querySelectorAll('.day-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Renderowanie zajęć
             const listContainer = document.getElementById('lessonsList');
             listContainer.innerHTML = '';
 
             const dayLessons = scheduleData[day] || [];
             
             if (dayLessons.length === 0) {
-                listContainer.innerHTML = '<p style="text-align:center; color:#6b7280;">Brak zajęć w tym dniu! 🎉</p>';
+                listContainer.innerHTML = '<p style="text-align:center; color:#94a3b8; padding: 20px;">Brak zajęć w tym dniu 🎉</p>';
                 hidePin();
                 return;
             }
 
-            dayLessons.forEach((lesson, index) => {
+            dayLessons.forEach((lesson) => {
                 const card = document.createElement('div');
                 card.className = 'lesson-card';
                 card.innerHTML = `
-                    <div class="lesson-time">${lesson.time}</div>
+                    <div class="lesson-header">
+                        <span class="lesson-time">${lesson.time}</span>
+                        <span class="room-tag">${lesson.room}</span>
+                    </div>
                     <div class="lesson-title">${lesson.title}</div>
-                    <div class="lesson-details">
+                    <div class="lesson-footer">
                         <span>Prowadzący: ${lesson.lecturer}</span>
-                        <span class="room-badge">${lesson.room}</span>
+                        <span>${lesson.type}</span>
                     </div>
                 `;
-                
-                // Po kliknięciu w zajęcia podświetlamy budynek na mapie
                 card.onclick = () => showBuildingOnMap(lesson.room, lesson.coords);
                 listContainer.appendChild(card);
             });
 
-            // Domyślnie pokaż pierwszy budynek z listy danego dnia
             if (dayLessons.length > 0) {
                 showBuildingOnMap(dayLessons[0].room, dayLessons[0].coords);
             }
@@ -282,30 +297,17 @@
             mapTitle.innerText = `Lokalizacja: ${roomName}`;
             pin.style.top = coords.top;
             pin.style.left = coords.left;
-            pin.innerText = roomName.split(' ')[0] + ' ' + roomName.split(' ')[1];
+            pin.innerText = roomName;
             pin.style.display = 'block';
         }
 
         function hidePin() {
             document.getElementById('mapPin').style.display = 'none';
-            document.getElementById('mapTitle').innerText = 'Wskaźnik budynku na mapie WAT';
+            document.getElementById('mapTitle').innerText = 'Lokalizacja budynku na mapie';
         }
 
-        // Automatyczne odświeżanie planu raz dziennie (symulacja pobierania ze strony WAT)
-        function checkDailyUpdate() {
-            const now = new Date();
-            const timeString = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-            document.getElementById('updateStatus').innerText = `Ostatnia synchronizacja ze stroną WAT: ${timeString}`;
-            
-            // Tutaj w docelowej wersji aplikacja odpytuje serwer/skrypt Python, który sprawdza HTML z WEL WAT
-        }
-
-        // Uruchomienie na start
         window.onload = () => {
             switchDay('poniedzialek');
-            checkDailyUpdate();
-            // Symulacja sprawdzenia aktualizacji co 24h
-            setInterval(checkDailyUpdate, 24 * 60 * 60 * 1000);
         };
     </script>
 </body>
